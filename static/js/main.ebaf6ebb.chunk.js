@@ -1,0 +1,2 @@
+(this["webpackJsonpdemo-react-app"]=this["webpackJsonpdemo-react-app"]||[]).push([[0],{10:function(e,t,n){"use strict";n.r(t);var c=n(1),r=n.n(c),a=n(3),i=n.n(a),o=(n(8),n(0));var s=function(){return Object(o.jsx)("div",{style:{margin:"auto",width:800,topPadding:"1rem"},children:Object(o.jsx)("h1",{className:"title",children:"Pokemon Search"})})};i.a.render(Object(o.jsx)(r.a.StrictMode,{children:Object(o.jsx)(s,{})}),document.getElementById("root"))},8:function(e,t,n){}},[[10,1,2]]]);
+//# sourceMappingURL=main.ebaf6ebb.chunk.js.map
