@@ -3,12 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import pokemon from './pokemon.json';
 
-// I'm guessing one would add some styling here, and 
-// pull this code out main and into another file
-
-// Normally this front end code would also make HTTP 
-// requests 
-
 // PokemonRow component with props
 //    i. Can bind click events to react components
 const PokemonRow = ({ pokemon, onSelect }) => (
