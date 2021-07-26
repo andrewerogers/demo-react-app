@@ -3,11 +3,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import pokemon from './pokemon.json';
 
+// I'm guessing one would add some styling here, and 
+// pull this code out main and into another file
+
+// Normally this front end code would also make HTTP 
+// requests 
+
 // PokemonRow component with props
-const PokemonRow = ({ pokemon }) => (
+//    i. Can bind click events to react components
+const PokemonRow = ({ pokemon, onSelect }) => (
   <tr>          
     <td>{pokemon.name.english}</td>
     <td>{pokemon.type.join(", ")}</td>
+    <td>
+      <button onClick = {() => onSelect(pokemon)}>select</button>
+    </td>
   </tr>
 );
 
@@ -18,11 +28,26 @@ PokemonRow.propTypes = {
     }),
     type: PropTypes.arrayOf(PropTypes.string),
   }),
+  onSelect: PropTypes.func,
 };
 
+const PokemonInfo = ({ name }) => (
+  <div>
+    <h1>{name.english}</h1>
+  </div>
+);
+
+PokemonInfo.propTypes = {
+  name: PropTypes.shape({
+    english: PropTypes.string,
+  })
+};
+
+
 function App() {
-  // react state manager [value, setter]
+  // react state manager [value, set]
   const [filter, filterSet] = React.useState("");
+  const [selectedItem, selectedItemSet] = React.useState(null);
   return (
     <div
       style={{
@@ -36,20 +61,33 @@ function App() {
         value={filter}
         onChange={(evt) => filterSet(evt.target.value)}
       />
-      <table width="100%">
-        <thead>
-          <tr>          
-            <th>Name</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pokemon.filter((pokemon) => pokemon.name.english.toLowerCase().includes(filter.toLowerCase()))
-          .slice(0,40).map((pokemon) => (
-            <PokemonRow pokemon={ pokemon } key={pokemon.id} />          
-          ))}
-        </tbody>
-      </table>
+      <div
+       style={{
+         display: "grid",
+         gridTemplateColumns: "70% 30%",
+         gridColumnGap: "1rem"
+       }}
+      >
+        <div>
+          <table width="100%">
+            <thead>
+              <tr>          
+                <th>Name</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pokemon.filter((pokemon) => pokemon.name.english.toLowerCase().includes(filter.toLowerCase()))
+              .slice(0,40).map((pokemon) => (
+                <PokemonRow pokemon={ pokemon } key={pokemon.id} onSelect={(pokemon) => selectedItemSet(pokemon)} />          
+              ))}
+            </tbody>
+          </table>
+        </div>
+      {selectedItem && (
+        <PokemonInfo {...selectedItem}/>
+      )}
+      </div>
     </div>
   );
 }
