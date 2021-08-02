@@ -3,6 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import pokemon from './pokemon.json';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import Modal from 'react-bootstrap/Modal';
+
+
 // PokemonRow component with props
 //    i. Can define events in react components
 //    ii. Implement when instantiated
@@ -11,7 +17,7 @@ const PokemonRow = ({ pokemon, onSelect }) => (
     <td>{pokemon.name.english}</td>
     <td>{pokemon.type.join(", ")}</td>
     <td>
-      <button onClick = {() => onSelect(pokemon)}>select</button>
+      <Button onClick = {() => onSelect(pokemon)}>select</Button>
     </td>
   </tr>
 );
@@ -27,9 +33,11 @@ PokemonRow.propTypes = {
 };
 
 const PokemonInfo = ({ name }) => (
-  <div>
-    <h1>{name.english}</h1>
-  </div>
+  <Modal.Dialog>
+    <Modal.Header closeButton>
+      <Modal.Title>{name.english}</Modal.Title>
+    </Modal.Header>
+  </Modal.Dialog>
 );
 
 PokemonInfo.propTypes = {
@@ -47,8 +55,8 @@ function App() {
     <div
       style={{
         margin: "auto",
-        width: 800,
-        topPadding: "1rem",
+        width: 1000,
+        topPadding: "2rem",
       }}
     >
       <h1 className="title">Pokemon Search</h1>
@@ -58,17 +66,16 @@ function App() {
       />
       <div
        style={{
-         display: "grid",
-         gridTemplateColumns: "70% 30%",
          gridColumnGap: "1rem"
        }}
       >
         <div>
-          <table width="100%">
+        <Table striped bordered hover variant="dark">
             <thead>
               <tr>          
                 <th>Name</th>
                 <th>Type</th>
+                <th>Details</th>
               </tr>
             </thead>
             <tbody>
@@ -77,7 +84,7 @@ function App() {
                 <PokemonRow pokemon={ pokemon } key={pokemon.id} onSelect={(pokemon) => selectedItemSet(pokemon)} />          
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       {selectedItem && (
         <PokemonInfo {...selectedItem}/>
