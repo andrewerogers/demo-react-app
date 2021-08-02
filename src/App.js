@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import pokemon from './pokemon.json';
 
 // PokemonRow component with props
-//    i. Can bind click events to react components
+//    i. Can define events in react components
+//    ii. Implement when instantiated
 const PokemonRow = ({ pokemon, onSelect }) => (
   <tr>          
     <td>{pokemon.name.english}</td>
