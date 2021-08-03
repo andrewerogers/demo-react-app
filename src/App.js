@@ -1,56 +1,23 @@
 import './App.css';
 import React from 'react';
-import PropTypes from 'prop-types';
-import pokemon from './pokemon.json';
+import PokemonInfo from './pokemon/PokemonInfo.js';
+import PokemonRow from './pokemon/PokemonRow.js';
+import pokemon from './pokemon/pokemon.json';
 
+// Bootstrap imports 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-import Modal from 'react-bootstrap/Modal';
-
-
-// PokemonRow component with props
-//    i. Can define events in react components
-//    ii. Implement when instantiated
-const PokemonRow = ({ pokemon, onSelect }) => (
-  <tr>          
-    <td>{pokemon.name.english}</td>
-    <td>{pokemon.type.join(", ")}</td>
-    <td>
-      <Button onClick = {() => onSelect(pokemon)}>select</Button>
-    </td>
-  </tr>
-);
-
-PokemonRow.propTypes = {
-  pokemon: PropTypes.shape({
-    name: PropTypes.shape({
-      english: PropTypes.string,
-    }),
-    type: PropTypes.arrayOf(PropTypes.string),
-  }),
-  onSelect: PropTypes.func,
-};
-
-const PokemonInfo = ({ name }) => (
-  <Modal.Dialog>
-    <Modal.Header closeButton>
-      <Modal.Title>{name.english}</Modal.Title>
-    </Modal.Header>
-  </Modal.Dialog>
-);
-
-PokemonInfo.propTypes = {
-  name: PropTypes.shape({
-    english: PropTypes.string,
-  })
-};
-
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
 
 function App() {
   // react state manager [value, set]
   const [filter, filterSet] = React.useState("");
   const [selectedItem, selectedItemSet] = React.useState(null);
+  const [show, setShow] = React.useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div
       style={{
@@ -60,12 +27,21 @@ function App() {
       }}
     >
       <h1 className="title">Pokemon Search</h1>
-      <input 
+
+      <InputGroup 
         value={filter}
         onChange={(evt) => filterSet(evt.target.value)}
-      />
+      >
+        <FormControl
+          placeholder="Search a pokemon"
+          aria-label="Search a pokemon"
+          aria-describedby="basic-addon2"
+        />
+      </InputGroup>
+
       <div
        style={{
+         paddingTop: "1rem",
          gridColumnGap: "1rem"
        }}
       >
@@ -80,14 +56,15 @@ function App() {
             </thead>
             <tbody>
               {pokemon.filter((pokemon) => pokemon.name.english.toLowerCase().includes(filter.toLowerCase()))
-              .slice(0,40).map((pokemon) => (
-                <PokemonRow pokemon={ pokemon } key={pokemon.id} onSelect={(pokemon) => selectedItemSet(pokemon)} />          
+              .slice(0,15).map((pokemon) => (
+                <PokemonRow pokemon={ pokemon } key={pokemon.id} 
+                onSelect={(pokemon) => selectedItemSet(pokemon)} handleShow = {handleShow} />          
               ))}
             </tbody>
           </Table>
         </div>
       {selectedItem && (
-        <PokemonInfo {...selectedItem}/>
+        <PokemonInfo show={show} handleClose={handleClose} {...selectedItem}/>
       )}
       </div>
     </div>
