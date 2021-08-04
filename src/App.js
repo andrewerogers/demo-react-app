@@ -10,8 +10,9 @@ import Table from 'react-bootstrap/Table';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 
+
 function App() {
-  // react state manager [value, set]
+  // built in react state manager [state, setter]
   const [filter, filterSet] = React.useState("");
   const [selectedItem, selectedItemSet] = React.useState(null);
   const [show, setShow] = React.useState(false);
@@ -22,12 +23,11 @@ function App() {
     <div
       style={{
         margin: "auto",
-        width: 1000,
-        topPadding: "2rem",
+        width: 800,
+        padding: "2rem",
+        backgroundColor: '#DEDEDE'
       }}
     >
-      <h1 className="title">Pokemon Search</h1>
-
       <InputGroup 
         value={filter}
         onChange={(evt) => filterSet(evt.target.value)}
