@@ -20,9 +20,7 @@ function Home() {
     return <div
     style={{
       margin: "auto",
-      width: 800,
-      padding: "2rem",
-      backgroundColor: '#DEDEDE'
+      width: 800
     }}
     >
       <InputGroup 
@@ -38,12 +36,12 @@ function Home() {
   
       <div
       style={{
-        paddingTop: "1rem",
+        paddingTop: "2rem",
         gridColumnGap: "1rem"
       }}
       >
         <div>
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant="light">
             <thead>
               <tr>          
                 <th>Name</th>
