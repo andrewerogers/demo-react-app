@@ -1,8 +1,8 @@
 import React from 'react';
 
-import PokemonInfo from '../pokemon/PokemonInfo.js';
-import PokemonRow from '../pokemon/PokemonRow.js';
-import pokemon from '../pokemon/pokemon.json';
+import PokemonInfo from './pokemon/PokemonInfo.js';
+import PokemonRow from './pokemon/PokemonRow.js';
+import pokemon from './pokemon/pokemon.json';
 
 // Bootstrap imports 
 import 'bootstrap/dist/css/bootstrap.min.css';

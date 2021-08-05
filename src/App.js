@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 // Views
-import Home from './views/Home.js';
+import Home from './views/home/Home.js';
 import About from './views/About.js';
 import Users from './views/Users.js';
 
