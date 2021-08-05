@@ -49,13 +49,8 @@ function App() {
           padding:"2rem"
         }}
       >
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
           <Route exact path="/demo-react-app">
-            <Redirect to="/home" />
-          </Route>
-          <Route exact path="/">
             <Redirect to="/home" />
           </Route>
           <Route path="/about">
