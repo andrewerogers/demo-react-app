@@ -1,73 +1,75 @@
 import './App.css';
 import React from 'react';
-import PokemonInfo from './pokemon/PokemonInfo.js';
-import PokemonRow from './pokemon/PokemonRow.js';
-import pokemon from './pokemon/pokemon.json';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+
+// Views
+import Home from './views/Home.js';
+import About from './views/About.js';
+import Users from './views/Users.js';
 
 // Bootstrap imports 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Table from 'react-bootstrap/Table';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
-
+import {
+  Navbar,
+  Container,
+  Nav,
+  NavDropdown
+} from "react-bootstrap";
 
 function App() {
-  // built in react state manager [state, setter]
-  const [filter, filterSet] = React.useState("");
-  const [selectedItem, selectedItemSet] = React.useState(null);
-  const [show, setShow] = React.useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   return (
-    <div
-      style={{
-        margin: "auto",
-        width: 800,
-        padding: "2rem",
-        backgroundColor: '#DEDEDE'
-      }}
-    >
-      <InputGroup 
-        value={filter}
-        onChange={(evt) => filterSet(evt.target.value)}
-      >
-        <FormControl
-          placeholder="Search a pokemon"
-          aria-label="Search a pokemon"
-          aria-describedby="basic-addon2"
-        />
-      </InputGroup>
+    <Router>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand href="/home">Pokemon Search</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/about">About</Nav.Link>
+              <Nav.Link href="/users">Users</Nav.Link>
+              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
 
       <div
-       style={{
-         paddingTop: "1rem",
-         gridColumnGap: "1rem"
-       }}
+        style={{
+          padding:"2rem"
+        }}
       >
-        <div>
-        <Table striped bordered hover variant="dark">
-            <thead>
-              <tr>          
-                <th>Name</th>
-                <th>Type</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pokemon.filter((pokemon) => pokemon.name.english.toLowerCase().includes(filter.toLowerCase()))
-              .slice(0,15).map((pokemon) => (
-                <PokemonRow pokemon={ pokemon } key={pokemon.id} 
-                onSelect={(pokemon) => selectedItemSet(pokemon)} handleShow = {handleShow} />          
-              ))}
-            </tbody>
-          </Table>
-        </div>
-      {selectedItem && (
-        <PokemonInfo show={show} handleClose={handleClose} {...selectedItem}/>
-      )}
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route exact path="/demo-react-app">
+            <Redirect to="/home" />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
 
