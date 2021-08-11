@@ -1,7 +1,10 @@
 import React from 'react';
 
 function About() {
-    return <h2>About</h2>;
+    return <div>
+        <h2>About</h2>
+        <p>A small pokemon app made to learn react basics! </p>
+    </div>
 }
 
 export default About;
