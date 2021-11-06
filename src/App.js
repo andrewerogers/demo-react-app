@@ -7,6 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 
+// Dummy comment
 // Views
 import Home from './views/home/Home.js';
 import About from './views/About.js';
