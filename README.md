@@ -1,1 +1,1 @@
-This is a learning app to understand how to build and maintain SPA's. The app includes a navbar, different views, and an internal router so is nearly full-featured. Larger apps would require a state management library such as redux or hooks, that is not included here but would be included in a full-featured production quality application. Additionally, I have forgone unit tests :). 
+
